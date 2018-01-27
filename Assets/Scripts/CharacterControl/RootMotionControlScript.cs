@@ -22,6 +22,9 @@ public class RootMotionControlScript : MonoBehaviour
     public float jumpableGroundNormalMaxAngle = 45f;
     public bool closeToJumpableGround;
 
+    public float animationSpeed = 1.2f;
+    public float rootMovementSpeed = 1f;
+    public float rootTurnSpeed = 2f;
     public bool isGrounded;
 
 
@@ -62,7 +65,8 @@ public class RootMotionControlScript : MonoBehaviour
         
     void Update()
     {
-        //TODO 
+        //TODO
+        anim.speed = animationSpeed;
     }
 
     void FixedUpdate()
@@ -136,7 +140,8 @@ public class RootMotionControlScript : MonoBehaviour
         newRootRotation = anim.rootRotation;
 
         //TODO Here, you could scale the difference in position and rotation to make the character go faster or slower
-
+        newRootPosition = Vector3.LerpUnclamped(this.transform.position, newRootPosition, rootMovementSpeed);
+        newRootRotation = Quaternion.LerpUnclamped(this.transform.rotation, newRootRotation, rootTurnSpeed);
         this.transform.position = newRootPosition;
         this.transform.rotation = newRootRotation;
 
